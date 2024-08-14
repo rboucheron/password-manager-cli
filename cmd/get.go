@@ -33,7 +33,7 @@ func getPassword(db *sql.DB, service string) {
     err := db.QueryRow(query, service).Scan(&username, &hashedPassword)
     if err != nil {
         if err == sql.ErrNoRows {
-            fmt.Println("Service non trouvé.")
+            fmt.Println("Service not found.")
         } else {
             log.Fatal(err)
         }
