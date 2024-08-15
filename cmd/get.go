@@ -9,7 +9,6 @@ import (
     _ "github.com/mattn/go-sqlite3"
 )
 
-// getCmd représente la commande "get"
 var getCmd = &cobra.Command{
     Use:   "get [service]",
     Short: "Récupère un mot de passe",
@@ -28,9 +27,9 @@ func init() {
 }
 
 func getPassword(db *sql.DB, service string) {
-    var username, hashedPassword string
+    var username, password string
     query := `SELECT username, password FROM passwords WHERE service = ?`
-    err := db.QueryRow(query, service).Scan(&username, &hashedPassword)
+    err := db.QueryRow(query, service).Scan(&username, &password)
     if err != nil {
         if err == sql.ErrNoRows {
             fmt.Println("Service not found.")
@@ -40,5 +39,5 @@ func getPassword(db *sql.DB, service string) {
         return
     }
 
-    fmt.Printf("Username: %s\nPassword: %s\n", username, hashedPassword)
+    fmt.Printf("Username: %s\nPassword: %s\n", username, password)
 }
