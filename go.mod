@@ -1,4 +1,4 @@
-module password-manager
+module pwm
 
 go 1.22.6
 

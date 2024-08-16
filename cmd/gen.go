@@ -51,6 +51,6 @@ func generatePassword(size int) {
 		password[i] = chars[rand.Intn(len(chars))]
 	}
 
-	fmt.Printf("Your randomly generated password is: %s/n", password)
+	fmt.Printf("Your randomly generated password is: %s\n", password)
 
 }

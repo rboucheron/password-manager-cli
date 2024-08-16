@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"password-manager/cmd"
+	"pwm/cmd"
 
 	"golang.org/x/crypto/bcrypt"
 	"golang.org/x/term"
