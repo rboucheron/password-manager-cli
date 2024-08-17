@@ -1,7 +1,10 @@
 package cmd
 
 import (
+	"crypto/aes"
+	"crypto/cipher"
 	"database/sql"
+	"encoding/hex"
 	"fmt"
 	"log"
 
@@ -19,14 +22,40 @@ var addCmd = &cobra.Command{
 		username := args[1]
 		password := args[2]
 
+		// Récupérer le mot de passe maître depuis les flags
+		masterPassword, _ := cmd.Flags().GetString("master-password")
+
+		// Chiffrer le mot de passe utilisateur
+		encryptedPassword, err := encryptPassword(masterPassword, password)
+		if err != nil {
+			log.Fatalf("Failed to encrypt password: %v", err)
+		}
+
 		db := initDB()
 		defer db.Close()
-		addPassword(db, service, username, password)
+		addPassword(db, service, username, encryptedPassword)
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(addCmd)
+}
+
+func encryptPassword(masterPassword, password string) (string, error) {
+	key := []byte(masterPassword + "effcd21a0000")
+	block, err := aes.NewCipher(key)
+	if err != nil {
+		return "", err
+	}
+
+	nonce := make([]byte, 12)
+	aesGCM, err := cipher.NewGCM(block)
+	if err != nil {
+		return "", err
+	}
+
+	ciphertext := aesGCM.Seal(nil, nonce, []byte(password), nil)
+	return hex.EncodeToString(ciphertext), nil
 }
 
 func initDB() *sql.DB {
