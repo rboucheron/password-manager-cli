@@ -1,12 +1,10 @@
 /*
 Copyright © 2024 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
 	"os"
-	"fmt"
 
 	"github.com/spf13/cobra"
 )
@@ -19,7 +17,6 @@ var rootCmd = &cobra.Command{
 	Short: "A brief description of your application",
 	Long: `A longer description that spans multiple lines and likely contains
 examples and usage of using your application. For example:
-
 Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
@@ -30,11 +27,9 @@ to quickly create a Cobra application.`,
 
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
-func Execute(masterPassword string) {
-	rootCmd.PersistentFlags().String("master-password", masterPassword, "Master password for encryption/decryption")
-
-	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
+func Execute() {
+	err := rootCmd.Execute()
+	if err != nil {
 		os.Exit(1)
 	}
 }
@@ -42,7 +37,7 @@ func Execute(masterPassword string) {
 func init() {
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application. 
+	// will be global for your application.
 
 	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.password-manager.yaml)")
 
@@ -50,5 +45,3 @@ func init() {
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
-
-

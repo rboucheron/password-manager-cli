@@ -1,10 +1,9 @@
 package cmd
 
 import (
-	"crypto/aes"
-	"crypto/cipher"
+
 	"database/sql"
-	"encoding/hex"
+
 	"fmt"
 	"log"
 
@@ -12,7 +11,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// addCmd représente la commande "add"
+
 var addCmd = &cobra.Command{
 	Use:   "add [service] [username] [password]",
 	Short: "Ajoute un nouveau mot de passe",
@@ -22,18 +21,10 @@ var addCmd = &cobra.Command{
 		username := args[1]
 		password := args[2]
 
-		// Récupérer le mot de passe maître depuis les flags
-		masterPassword, _ := cmd.Flags().GetString("master-password")
-
-		// Chiffrer le mot de passe utilisateur
-		encryptedPassword, err := encryptPassword(masterPassword, password)
-		if err != nil {
-			log.Fatalf("Failed to encrypt password: %v", err)
-		}
 
 		db := initDB()
 		defer db.Close()
-		addPassword(db, service, username, encryptedPassword)
+		addPassword(db, service, username, password)
 	},
 }
 
@@ -41,25 +32,10 @@ func init() {
 	rootCmd.AddCommand(addCmd)
 }
 
-func encryptPassword(masterPassword, password string) (string, error) {
-	key := []byte(masterPassword + "effcd21a0000")
-	block, err := aes.NewCipher(key)
-	if err != nil {
-		return "", err
-	}
 
-	nonce := make([]byte, 12)
-	aesGCM, err := cipher.NewGCM(block)
-	if err != nil {
-		return "", err
-	}
-
-	ciphertext := aesGCM.Seal(nil, nonce, []byte(password), nil)
-	return hex.EncodeToString(ciphertext), nil
-}
 
 func initDB() *sql.DB {
-	db, err := sql.Open("sqlite3", "./passwords.db")
+	db, err := sql.Open("sqlite3", "~/password-manager/passwords.db")
 	if err != nil {
 		log.Fatal(err)
 	}
