@@ -6,6 +6,8 @@ package cmd
 import (
 	"os"
 
+
+
 	"github.com/spf13/cobra"
 )
 
@@ -19,6 +21,9 @@ var rootCmd = &cobra.Command{
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
+    Run: func(cmd *cobra.Command, args []string) {
+       help()
+    },
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -41,3 +46,5 @@ func init() {
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
+
+
