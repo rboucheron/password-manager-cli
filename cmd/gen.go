@@ -6,6 +6,7 @@ package cmd
 import (
 	"fmt"
 	"math/rand"
+	"pwm/colors"
 	"strconv"
 
 	"github.com/spf13/cobra"
@@ -44,13 +45,13 @@ func init() {
 
 func generatePassword(size int) {
 
-	chars := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-	password := make([]byte, size - 1)
+	chars := "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789:/=+;,?().<>"
+	password := make([]byte, size-1)
 
 	for i := range password {
 		password[i] = chars[rand.Intn(len(chars))]
 	}
 
-	fmt.Printf("Your randomly generated password is: %s\n", password)
+	fmt.Printf(colors.InfoColor("Your randomly generated password is: %s\n"), password)
 
 }

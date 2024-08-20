@@ -1,16 +1,13 @@
 package cmd
 
 import (
-
 	"database/sql"
-
 	"fmt"
 	"log"
-
+	"pwm/colors"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/spf13/cobra"
 )
-
 
 var addCmd = &cobra.Command{
 	Use:   "add [service] [username] [password]",
@@ -20,7 +17,6 @@ var addCmd = &cobra.Command{
 		service := args[0]
 		username := args[1]
 		password := args[2]
-
 
 		db := initDB()
 		defer db.Close()
@@ -32,10 +28,8 @@ func init() {
 	rootCmd.AddCommand(addCmd)
 }
 
-
-
 func initDB() *sql.DB {
-	db, err := sql.Open("sqlite3", "~/password-manager/passwords.db")
+	db, err := sql.Open("sqlite3", "./passwords.db")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -64,5 +58,5 @@ func addPassword(db *sql.DB, service, username, password string) {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Password added successfully!")
+	fmt.Println(colors.ErrorColor("Password added successfully!"))
 }

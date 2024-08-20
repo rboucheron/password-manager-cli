@@ -8,6 +8,7 @@ import (
     "database/sql"
     "fmt"
     "log"
+    "pwm/colors"
 
     "github.com/spf13/cobra"
     _ "github.com/mattn/go-sqlite3"
@@ -53,7 +54,7 @@ func listService(db *sql.DB) {
         if err != nil {
             log.Fatal(err)
         }
-        fmt.Printf("Service: %s Username: %s\n", service, username)
+        fmt.Printf( colors.InfoColor("- %s  Username: %s\n"), service, username)
     }
 
     if err = rows.Err(); err != nil {

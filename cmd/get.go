@@ -1,43 +1,45 @@
 package cmd
 
 import (
-    "database/sql"
-    "fmt"
-    "log"
+	"database/sql"
+	"fmt"
 
-    "github.com/spf13/cobra"
-    _ "github.com/mattn/go-sqlite3"
+	_ "github.com/mattn/go-sqlite3"
+	"github.com/spf13/cobra"
+	"log"
+	"pwm/colors"
 )
 
 var getCmd = &cobra.Command{
-    Use:   "get [service]",
-    Short: "Récupère un mot de passe",
-    Args:  cobra.ExactArgs(1),
-    Run: func(cmd *cobra.Command, args []string) {
-        service := args[0]
+	Use:   "get [service]",
+	Short: "Récupère un mot de passe",
+	Args:  cobra.ExactArgs(1),
+	Run: func(cmd *cobra.Command, args []string) {
+		service := args[0]
 
-        db := initDB()
-        defer db.Close()
-        getPassword(db, service)
-    },
+		db := initDB()
+		defer db.Close()
+		getPassword(db, service)
+	},
 }
 
 func init() {
-    rootCmd.AddCommand(getCmd)
+	rootCmd.AddCommand(getCmd)
 }
 
 func getPassword(db *sql.DB, service string) {
-    var username, password string
-    query := `SELECT username, password FROM passwords WHERE service = ?`
-    err := db.QueryRow(query, service).Scan(&username, &password)
-    if err != nil {
-        if err == sql.ErrNoRows {
-            fmt.Println("Service not found.")
-        } else {
-            log.Fatal(err)
-        }
-        return
-    }
+	var username, password string
+	query := `SELECT username, password FROM passwords WHERE service = ?`
+	err := db.QueryRow(query, service).Scan(&username, &password)
 
-    fmt.Printf("Username: %s\nPassword: %s\n", username, password)
+	if err != nil {
+		if err == sql.ErrNoRows {
+			fmt.Println(colors.ErrorColor("Service not found"))
+		} else {
+			log.Fatal(err)
+		}
+		return
+	}
+
+	fmt.Printf(colors.SuccessColor("Username: %s\nPassword: %s\n"), username, password)
 }
