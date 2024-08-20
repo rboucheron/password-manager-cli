@@ -41,5 +41,5 @@ func getPassword(db *sql.DB, service string) {
 		return
 	}
 
-	fmt.Printf(colors.SuccessColor("Username: %s\nPassword: %s\n"), username, password)
+	fmt.Printf(colors.InfoColor("Username: %s\nPassword: %s\n"), username, password)
 }

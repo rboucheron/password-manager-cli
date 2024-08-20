@@ -11,7 +11,7 @@ import (
 
 var addCmd = &cobra.Command{
 	Use:   "add [service] [username] [password]",
-	Short: "Ajoute un nouveau mot de passe",
+	Short: "",
 	Args:  cobra.ExactArgs(3),
 	Run: func(cmd *cobra.Command, args []string) {
 		service := args[0]
@@ -58,5 +58,5 @@ func addPassword(db *sql.DB, service, username, password string) {
 		log.Fatal(err)
 	}
 
-	fmt.Println(colors.ErrorColor("Password added successfully!"))
+	fmt.Println(colors.SuccessColor("Password added successfully!"))
 }

@@ -1,5 +1,28 @@
 ## Password Manager 🔐
 Cette application en ligne de commande permet de gérer et de stocker vos mots de passe en toute sécurité. Elle offre la possibilité d'ajouter, de récupérer des mots de passe associés à différents services, ainsi que de générer des mots de passe aléatoires.
 
+          _____                    _____                    _____          
+         /\    \                  /\    \                  /\    \         
+        /::\    \                /::\____\                /::\____\        
+       /::::\    \              /:::/    /               /::::|   |        
+      /::::::\    \            /:::/   _/___            /:::::|   |        
+     /:::/\:::\    \          /:::/   /\    \          /::::::|   |        
+    /:::/__\:::\    \        /:::/   /::\____\        /:::/|::|   |        
+   /::::\   \:::\    \      /:::/   /:::/    /       /:::/ |::|   |        
+  /::::::\   \:::\    \    /:::/   /:::/   _/___    /:::/  |::|___|______  
+ /:::/\:::\   \:::\____\  /:::/___/:::/   /\    \  /:::/   |::::::::\    \ 
+/:::/  \:::\   \:::|    ||:::|   /:::/   /::\____\/:::/    |:::::::::\____\
+\::/    \:::\  /:::|____||:::|__/:::/   /:::/    /\::/    / ~~~~~/:::/    /
+ \/_____/\:::\/:::/    /  \:::\/:::/   /:::/    /  \/____/      /:::/    / 
+          \::::::/    /    \::::::/   /:::/    /               /:::/    /  
+           \::::/    /      \::::/___/:::/    /               /:::/    /   
+            \::/____/        \:::\__/:::/    /               /:::/    /    
+             ~~               \::::::::/    /               /:::/    /     
+                               \::::::/    /               /:::/    /      
+                                \::::/    /               /:::/    /       
+                                 \::/____/                \::/    /        
+                                  ~~                       \/____/      
+
+
 ## Stack 
 J'ai utilisé le langage Go ainsi que le framework Cobra, qui permet de créer des interfaces en ligne de commande (CLI). Les données sont stockées dans une base de données SQLite.
