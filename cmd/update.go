@@ -79,6 +79,6 @@ func updateUsername(db *sql.DB, service, username string) {
 		log.Fatal(err)
 	}
 
-	fmt.Println(colors.SuccessColor("Password added successfully!"))
+	fmt.Println(colors.SuccessColor("Username added successfully!"))
 
 }
