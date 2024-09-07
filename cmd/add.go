@@ -3,10 +3,12 @@ package cmd
 import (
 	"database/sql"
 	"fmt"
-	"log"
-	"pwm/colors"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/spf13/cobra"
+	"log"
+	"os"
+	"path/filepath"
+	"pwm/colors"
 )
 
 var addCmd = &cobra.Command{
@@ -28,8 +30,14 @@ func init() {
 	rootCmd.AddCommand(addCmd)
 }
 
+func getDbPath() string {
+	executablePath, _ := os.Executable()
+	baseDir := filepath.Dir(executablePath)
+	return filepath.Join(baseDir, "passwords.db")
+}
+
 func initDB() *sql.DB {
-	db, err := sql.Open("sqlite3", "./passwords.db")
+	db, err := sql.Open("sqlite3", getDbPath())
 	if err != nil {
 		log.Fatal(err)
 	}
